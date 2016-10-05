@@ -235,7 +235,15 @@ class LiveResponseSession(object):
         command_id = resp.get('id')
 
         return self._poll_command(command_id).get("processes", [])
+	
 
+    def memdump(self, dumpfile):
+        data = {"name": "memdump", "object": dumpfile}
+        resp = self._lr_post_command(data).json()
+        command_id = resp.get('id')
+
+        return self._poll_command(command_id).get("status", [])
+	
     #
     # Registry operations
     #
